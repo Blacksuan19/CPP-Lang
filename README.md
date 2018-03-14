@@ -1,2 +1,3 @@
 # CPP-Lang
-new semseter, new language, and its c++ this time
+
+will try to put comments on files when nedded from the begining this time

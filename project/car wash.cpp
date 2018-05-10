@@ -157,6 +157,7 @@ void Services() // services function.
 void Receipt()
 {
 	tags();
+	sleep(1);
 	cout << endl << "Starting Your Service..." << endl;
 	sleep(2);
 	cout << "\npress Any Key To Start: ";
@@ -171,7 +172,7 @@ void Receipt()
 	sleep(2);
 	tags();
 	Meta(); //call function to generate service id, time, and date
-	cout <<  endl << setw(15) << left <<  "Date " << ": " << week[s + 1] << " " << day + 1 << "th, " << mon_char[mon - 1] << " " << year << endl;
+	cout <<  endl << setw(15) << left <<  "Date " << ": " << week[s + 1] << ", " << mon_char[mon - 1] << " " << day + 1 << "th" << " " << year << endl;
 	sleep(1);
 	cout << endl << setw(15) << left <<  "Service ID" << ": " << serv_id << endl;
 	sleep(1);

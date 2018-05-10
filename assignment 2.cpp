@@ -1,61 +1,90 @@
+/* Members:
+	- Abubakar Yagoub     1625897
+	- Hanan Allil 			1617888
+*/
 #include <iostream>
-using namespace std;
-
 #include <iomanip>
+using namespace std;
+const int ROW_M = 3, COL_M = 2, ROW_N = 2, COL_N = 2; //rows and cols for all matrices
+int M[ROW_M][COL_M] = {} , N[ROW_N][COL_N] = {} , MN[ROW_M][COL_N] = {} , MNT[COL_N][ROW_M] = {} , total = 0; // each matrix has to be empty at first so we wont get random data.
+void MultiMatrix(int a[][2], int b[][2]); // multiplication.
+void MatTranspose(int a[][COL_N]); // transpose.
+int calcTotal(int a[][ROW_M]); // find sum of elements
 int main()
 {
-	int average, population1, population2, population3, population4, population5, population6;
-	char symbol = '#';
-	cout << "Enter population of city 1: ";
-	cin >> population1;
-	cout << "Enter population of city 2: ";
-	cin >> population2;
-	cout << "Enter population of city 3: ";
-	cin >> population3;
-	cout << "Enter population of city 4: ";
-	cin >> population4;
-	cout << "Enter population of city 5: ";
-	cin >> population5;
-	cout << "Enter population of city 6: ";
-	cin >> population6;
-	average = (population1 + population2 + population3 + population4 + population5 + population6) / 6;
-	cout << "Average population for 6 cities: " << average << endl;
-	cout << "POPULATION (each # represents 10,000 people)" << endl;
-	cout << "City 1: ";
-	for (int i = 10000; i < population1; i = i + 10000)
+	cout << "Enter values for array M:" << endl;
+	for (int i = 0; i < ROW_M; ++i)
 	{
-		cout << symbol << " ";
+		for (int j = 0; j < COL_M; ++j)
+		{
+			cin >> *(M[i] + j);
+		}
 	}
-	cout << "#" << endl; // this is because it'll always have one missing so have to add it separately 
-	cout << "City 2: ";
-	for (int i = 10000; i < population2; i = i + 10000)
+	cout << "Enter values for array N:" << endl;
+	for (int i = 0; i < ROW_N; ++i)
 	{
-		cout << symbol << " ";
+		for (int j = 0; j < COL_N; ++j)
+		{
+			cin >> *(N[i] + j);
+		}
 	}
-	cout << "#" << endl;
-	cout << "City 3: ";
-	for (int i = 10000; i < population3; i = i + 10000)
-	{
-		cout << symbol << " ";
-	}
-	cout << "#" << endl;
-	cout << "City 4: ";
-	for (int i = 10000; i < population4; i = i + 10000)
-	{
-		cout << symbol << " ";
-	}
-	cout << "#" << endl;
-	cout << "City 5: ";
-	for (int i = 10000; i < population5; i = i + 10000)
-	{
-		cout << symbol << " ";
-	}
-	cout << "#" << endl;
-	cout << "City 6: ";
-	for (int i = 10000; i < population6; i = i + 10000)
-	{
-		cout << symbol << " ";
-	}
-	cout << "#" << endl;
+	MultiMatrix(M, N);
+	MatTranspose(MN);
+	total = calcTotal(MNT);
+	cout << endl <<  "the sum of elements in MNT is: " << total << endl;
 	return 0;
+}
+// made all function true non global functions by using passed values instead of globals.
+void MultiMatrix(int a[][2], int b[][2])
+{
+	// no need to declare function-specific array because writing to globals and nothing is returned.
+	for (int i = 0; i < ROW_M; ++i)
+		for (int j = 0; j < COL_N; ++j)
+			for (int k = 0; k < COL_M; ++k)
+			{
+				*(MN[i] + j) += *(a[i] + k) * *(b[k] + j);
+			}
+	cout << endl << "Matrix M x N is: " << endl << endl;
+	for (int i = 0; i < ROW_M; ++i)
+	{
+		cout << "|";
+		for (int j = 0; j < COL_N; ++j)
+		{
+			cout << setw(4) << right << * (MN[i] + j);
+		}
+		cout <<  "  |" << endl;
+	}
+}
+void MatTranspose(int a[][2])
+{
+	// no need to declare function-specific array because writing to globals and nothing is returned.
+	for (int i = 0; i < ROW_M; i++)
+	{
+		for (int j = 0; j < COL_N; j++)
+		{
+			*(MNT[j] + i) = *(a[i] + j);
+		}
+	}
+	cout << endl << "The transpose of matrix M x N is: " << endl << endl;
+	for (int i = 0; i < COL_N; ++i)
+	{
+		cout << "|";
+		for (int j = 0; j < ROW_M; ++j)
+		{
+			cout << setw(4) << right << * (MNT[i] + j);
+		}
+		cout <<  "  |" << endl;
+	}
+}
+int calcTotal(int a[][3])
+{
+	int sum = 0;
+	for (int i = 0; i < COL_N; ++i)
+	{
+		for (int j = 0; j < ROW_M; ++j)
+		{
+			sum += *(a[i] + j);
+		}
+	}
+	return sum;
 }

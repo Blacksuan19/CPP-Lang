@@ -1,16 +1,19 @@
+// for windows only!!
 /* group members:
 	- Abubakar Yagoub Ibrahim     1625897
  	- Hanan Allil 			 		   1617888
 	- Ichsanudin Fukky Winasis     G1710308
  */
-// time to start commenting everything for no reason(because why not)
-// too many sleep() to make it more realistic
-// between both if-else and switch for diversity
+// time to start commenting everything for no reason(because why not).
+// some parts have no comments because they're self explanatory.
+// too many sleep() to make it more realistic.
+// using both if-else and switch for diversity.
+// all input and operations on variables are done with pointers(because why not!!).
 #include <iostream> // standard library
 #include <iomanip> // output manipulation library
 #include <cstring> // C library (for strcpy)
 #include "payment.h" // external header file
-#include <ctime> //time library
+#include <ctime> // time library
 using namespace std;
 char name[] = "AHK"; // combination of team names initials.
 void tags(); // decoration, separating between different parts of the program
@@ -21,14 +24,14 @@ void Another_Service(); // function to let user choose another service after fin
 int main()
 {
 	cout << "			--------------------------------------------------\n\n";
-	cout << "				Welcome To " << name <<  " Car Washing Service\n" << endl; // need a name for this
+	cout << "				Welcome To " << name <<  " Car Washing Service\n" << endl;
 	cout << "			--------------------------------------------------\n\n";
 	sleep(2);
 	cout << "\nPlease Select Vehicle Type: " << endl << endl // prompt user to select vehicle type.
 	     << "1. Car" << endl
 	     << "2. Motor Bike" << endl
 	     << "3. Truck " << endl <<  endl;
-	cin >> *ptr_veh;// should be vehicle type (check)
+	cin >> *ptr_veh;
 	while (*ptr_veh > 3 || *ptr_veh < 1) // just in case you think you're smart.
 	{
 		sleep(1);
@@ -51,7 +54,7 @@ int main()
 	}
 	cout << endl;
 	cin >> *ptr_serv;
-	while (*ptr_serv > 6 || *ptr_serv < 1) // just in case you think you're smart
+	while (*ptr_serv > 6 || *ptr_serv < 1) // just in case you think you're smart.
 	{
 		sleep(1);
 		cout << "Please Select A Valid Option: ";
@@ -67,7 +70,7 @@ void Services() // services function.
 	sleep(2);
 	if (*ptr_serv == 1)
 	{
-		/* the main difference between the 3 types is tools used to perform the operation
+		/* the main difference between the 3 types is tools used to perform the operation and the amount of attention to details
 		premium type includes all things from Advanced and Basic with some extras as well */
 		cout << "\nSelect The Type Of Wash You Want: \n" << endl
 		     << setw(20) << left << "1. Basic Wash" << setw(3) << left << "RM" << w_price[0] << endl
@@ -96,7 +99,7 @@ void Services() // services function.
 	}
 	if (*ptr_serv == 2)
 	{
-		/* the main difference between the 3 types is tools used to perform the operation
+		/* the main difference between the 3 types is tools used to perform the operation and the amount of attention to details
 		premium type includes all things from Advanced and Basic with some extras as well */
 		cout << "\nPlease Select The  Scrub Type You Want: \n" << endl
 		     << setw(20) << left << "1. Basic Scrub" << setw(3) << left << "RM" << scrub_price[0] << endl
@@ -218,7 +221,7 @@ void Receipt()
 	case 6 : cout << "Wax" << endl; break;
 	}
 	sleep(1);
-	cout << endl <<  setw(15) << left <<  "Payment Amount" << ": RM" << total << endl << endl; // total is the payment amount, no algorithm needed
+	cout << endl <<  setw(15) << left <<  "Payment Amount" << ": RM" << total << endl << endl;
 	tags();
 	cout << endl << "Would You Like To Perform Another Operation (yes or no)? ";
 	cin >> as_yn;
@@ -231,7 +234,7 @@ void Receipt()
 		cin >> as_yn;
 	}
 	sleep(2);
-	// new option to check if user wants to perform another operation or not
+	// check if user wants to perform another service.
 	if (strcmp(as_yn, "yes" ) == 0 || strcmp(as_yn, "Yes") == 0) // let both capital and small initials be true
 	{
 		Another_Service(); // function call.
@@ -258,7 +261,7 @@ void Meta() // good stuff right here.
 	strcpy(week[4], "Thu") ;
 	strcpy(week[5], "Fri") ;
 	strcpy(week[6], "Sat") ;
-	srand(time(NULL)); // set run time to null so you get a different number each time you run the program.
+	srand(time(NULL)); // set run time to null so you get a different number each time you run the function.
 	serv_id = 1 + rand() % (1 - 1000 + 1); // generate a number between 1 and 1000.
 	time_t t = time(NULL); // set the time to null so it will read the right system data everytime you run the program.
 	struct tm tm = *localtime(&t); // a structure to get the local date
@@ -289,7 +292,7 @@ void Meta() // good stuff right here.
 
 void Another_Service() // allow user To select another operation.
 {
-	// wont ask for vehicle type again because its known now.
+	// wont ask for vehicle type again because its already  known by now.
 	int i = 1; // for do-while
 	tags();
 	// get the other operation user wants to perform and start all over again
@@ -299,7 +302,7 @@ void Another_Service() // allow user To select another operation.
 		cout << i << ". " << Serv[i - 1] << endl;
 		++i;
 	} while (i <=  6);
-	cout << endl;
+	cout << endl; // formatting 101.
 	cin >> *ptr_serv;
 	while (*ptr_serv > 6 || *ptr_serv < 1) // just confirming YOU'RE NOT SMART!!
 	{

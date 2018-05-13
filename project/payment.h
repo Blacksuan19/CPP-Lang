@@ -9,7 +9,7 @@ const int veichle_price[3] = {20, 15, 40}; // array for prices car, motor, truck
 const int w_price[3] = {15, 20, 30}; // Wash prizes based on type
 const int scrub_price[3] = {10, 20, 40}; // scrub prizes based on type
 int vehicle_type, service, price, w_type, scrub_type, total, day, mon, year, serv_id, day_nxt, year_nxt, mon_nxt, s;
-char start_yn[100], Serv[6][20], as_yn[5], week[7][10], mon_char[12][20] ; // array to output services
+char start_yn[100], Serv[6][20], as_yn[5], week[7][10], mon_char[12][20] ;
 int month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; // number of days each month has.
 int *ptr_veh = &vehicle_type, *ptr_serv = &service, *ptr_w = &w_type, *ptr_scrub = &scrub_type; // using pointers for some values.
 // realized this thing is gonna be huge so moved to a separate header file.
@@ -210,6 +210,6 @@ void Payment()
 	}
 	sleep(2);
 	cout << "\n" << "Please Pay at The Counter..." << "\n\n";
-	sleep(7); // will assume that he made the payment in those 5 seconds
+	sleep(5); // will assume that he made the payment in those 5 seconds
 	cout << "Payment Received!" << endl << endl;
 }

@@ -1,4 +1,3 @@
-// for windows only!!
 /* group members:
 	- Abubakar Yagoub Ibrahim     1625897
  	- Hanan Allil 			 		   1617888
@@ -8,13 +7,21 @@
 // some parts have no comments because they're self explanatory.
 // too many Sleep() to make it more realistic.
 // using both if-else and switch for diversity.
-// all input and operations on variables are done with pointers(because why not!!).
+// all input and operations on variables are done with pointers(yeah i know this is not a *NIX kernel but  why not!!).
 #include <iostream> // standard library
 #include <iomanip> // output manipulation library
 #include <cstring> // C library (for strcpy)
-#include "payment win.h" // external header file
+#include "payment.h" // external header file
 #include <ctime> // time library
 using namespace std;
+const int  rinse_price = 10, steam_price = 15, vacuum_price = 10, wax_price = 5; // prices
+const int veichle_price[3] = {20, 15, 40}; // array for prices car, motor, truck.
+const int w_price[3] = {15, 20, 30}; // Wash prizes based on type
+const int scrub_price[3] = {10, 20, 40}; // scrub prizes based on type
+int vehicle_type, service, price, w_type, scrub_type, total, day, mon, year, serv_id, s; // types and total.
+char start_yn[100], Serv[6][20], as_yn[5], week[7][10], mon_char[12][20] ;
+int month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; // number of days each month has.
+int *ptr_veh = &vehicle_type, *ptr_serv = &service, *ptr_w = &w_type, *ptr_scrub = &scrub_type; // using pointers for some values.
 char name[] = "AHK"; // combination of team names initials.
 void tags(); // decoration, separating between different parts of the program
 void Services(); // services and their options etc.

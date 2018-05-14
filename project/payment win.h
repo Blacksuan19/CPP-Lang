@@ -1,19 +1,17 @@
-// for windows only!!
 #include <iostream>
 #include <iomanip>
 #include <string>
 #include <unistd.h>
 using namespace std;
-// global declarations in a header file and yes it does work.
-const int  rinse_price = 10, steam_price = 15, vacuum_price = 10, wax_price = 5;
-const int veichle_price[3] = {20, 15, 40}; // array for prices car, motor, truck.
-const int w_price[3] = {15, 20, 30}; // Wash prizes based on type
-const int scrub_price[3] = {10, 20, 40}; // scrub prizes based on type
-int vehicle_type, service, price, w_type, scrub_type, total, day, mon, year, serv_id, day_nxt, year_nxt, mon_nxt, s;
-char start_yn[100], Serv[6][20], as_yn[5], week[7][10], mon_char[12][20] ; 
-int month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; // number of days each month has.
-int *ptr_veh = &vehicle_type, *ptr_serv = &service, *ptr_w = &w_type, *ptr_scrub = &scrub_type; // using pointers for some values.
-// realized this thing is gonna be huge(but simple) so moved to a separate header file.
+// external declarations. 
+extern const int  rinse_price , steam_price, vacuum_price, wax_price; // prices
+extern const int veichle_price[3]; // array for prices car, motor, truck.
+extern const int w_price[3]; // Wash prizes based on type
+extern const int scrub_price[3]; // scrub prizes based on type
+extern int vehicle_type, service, price, w_type, scrub_type, total; // types and total.
+extern char  Serv[6][20] ; // services array.
+extern int *ptr_veh , *ptr_serv, *ptr_w, *ptr_scrub; // using pointers for some values.
+// realized this thing is gonna be huge so moved to a separate header file.
 void Payment()
 {
 	Sleep(1);

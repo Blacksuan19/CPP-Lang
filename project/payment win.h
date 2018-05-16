@@ -1,9 +1,10 @@
+// for windows only!!
 #include <iostream>
-#include <iomanip>
-#include <string>
 #include <unistd.h>
+#include <windows.h> // for Sleep() function.
+#include <cstdlib> //standard library.
 using namespace std;
-// external declarations. 
+// external declarations.
 extern const int  rinse_price , steam_price, vacuum_price, wax_price; // prices
 extern const int veichle_price[3]; // array for prices car, motor, truck.
 extern const int w_price[3]; // Wash prizes based on type

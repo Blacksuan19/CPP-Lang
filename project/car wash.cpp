@@ -3,17 +3,19 @@
  	- Hanan Allil 			 		   1617888
 	- Ichsanudin Fukky Winasis     G1710308
  */
-// time to start commenting everything for no reason(because why not).
+// time to start commenting everything for no reason (because why not).
 // some parts have no comments because they're self explanatory.
 // too many sleep() to make it more realistic.
 // using both if-else and switch for diversity.
-// all input and operations on variables are done with pointers(yeah i know this is not a *NIX kernel but  why not!!).
+// all input and operations on variables are done with pointers (yeah i know this is not a *NIX kernel but  why not!!).
 #include <iostream> // standard library
 #include <iomanip> // output manipulation library
 #include <cstring> // C library (for strcpy)
 #include "payment.h" // external header file
+#include <cstdlib> // standard library.
 #include <ctime> // time library
-using namespace std;
+using namespace std; //...
+// global definition for everything so that all functions can access it.
 const int  rinse_price = 10, steam_price = 15, vacuum_price = 10, wax_price = 5; // prices
 const int veichle_price[3] = {20, 15, 40}; // array for prices car, motor, truck.
 const int w_price[3] = {15, 20, 30}; // Wash prizes based on type
@@ -27,6 +29,7 @@ void tags(); // decoration, separating between different parts of the program
 void Services(); // services and their options etc.
 void Receipt(); // print Receipt after service is finished
 void Meta(); // generate a service number and get today's date and stuff.
+void Ongoing(); // stop the program for a specific amount of time based on service
 void Another_Service(); // function to let user choose another service after finishing first service
 int main()
 {
@@ -160,23 +163,14 @@ void Services() // services function.
 	tags();
 	cout << endl; // formatting game on point.
 	Payment(); // go to payment function in header file
+	Ongoing(); // track operation status and time.
 	Receipt(); // go to receipt after finishing payment part
 }
 
 void Receipt()
 {
-	tags();
+
 	sleep(1);
-	cout << endl << "Starting Your Service..." << endl;
-	sleep(2);
-	cout << "\npress Any Key To Start: ";
-	cin >> start_yn; // input anything here just to make sure the user wants the service to start now
-	sleep(2);
-	cout << endl << "Service ongoing..." << endl;
-	sleep(10); // assuming in these 10 seconds  the operation is completed
-	cout << "\nOperation Completed!!" << endl << endl; // skip 2 lines
-	sleep(2);
-	tags();
 	cout << endl <<  "Here Is Your Receipt:" << endl << endl;
 	sleep(2);
 	tags();
@@ -257,7 +251,53 @@ void Receipt()
 
 	}
 }
-
+void Ongoing() // stop program for specific amount of time based on time.
+{
+	tags();
+	cout << endl << "Starting Your Service..." << endl;
+	sleep(2);
+	cout << "\npress Any Key To Start: ";
+	cin >> start_yn; // input anything here just to make sure the user wants the service to start now
+	sleep(2);
+	cout << endl << "Service ongoing..." << endl;
+	// stop the program for a specific amount of seconds based on service type.
+	switch (*ptr_serv)
+	{
+	case 1:
+		if (*ptr_w = 1)
+		{
+			sleep(5); // basic wash takes less time
+		}
+		else if (*ptr_w = 2)
+		{
+			sleep(7); // advanced wash takes more time.
+		}
+		else if (*ptr_w = 3)
+		{
+			sleep(10); // premium takes the most time.
+		} break;
+	case 2:
+		if (*ptr_scrub == 1)
+		{
+			sleep(4); // scrubbing takes less than washing
+		}
+		if (*ptr_scrub == 2)
+		{
+			sleep(6); // advanced takes more time
+		}
+		if (*ptr_scrub == 3)
+		{
+			sleep(8); // premium takes the most time.
+		}
+	case 3: sleep(4); break; //rinse time.
+	case 4: sleep(7); break; // steam time.
+	case 5: sleep(9); break; // vacuum time.
+	case 6: sleep(10); break; // wax time.
+	}
+	cout << "\nOperation Completed!!" << endl << endl; // skip 2 lines
+	sleep(2);
+	tags();
+}
 void Meta() // good stuff right here.
 {
 	// copy week days to week array

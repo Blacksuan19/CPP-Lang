@@ -1,7 +1,6 @@
 #include <iostream>
-#include <iomanip>
-#include <string>
 #include <unistd.h>
+#include <cstdlib>
 using namespace std;
 // external declarations. 
 extern const int  rinse_price , steam_price, vacuum_price, wax_price; // prices

@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <cstring>
 #include <unistd.h>
+#include <cstdlib>
 using namespace std;
 char waem , cold, hot , complete[10], answ_add;
 int type, standar_ret, x, type_wash, add;

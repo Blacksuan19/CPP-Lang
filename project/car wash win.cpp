@@ -6,26 +6,27 @@
  */
 // time to start commenting everything for no reason (because why not).
 // some parts have no comments because they're self explanatory.
-// too many Sleep() * 1000 to make it more realistic.
+// too many Sleep() to make it more realistic.
 // using both if-else and switch for diversity.
-// all input and operations on variables are done with pointers (yeah i know this is not a *NIX kernel but  why not!!).
+// most input and operations on variables are done with pointers (yeah i know this is not a *NIX kernel but  why not!!).
 #include <iostream> // standard library
 #include <iomanip> // output manipulation library
 #include <cstring> // C library (for strcpy)
 #include "payment win.h" // external header file
+#include <cstdlib> // standard library.
 #include <ctime> // time library
-#include <windows.h> // for Sleep() function.
-#include <cstdlib> //standard library.
+#include <windows.h> // for Sleep() function
 using namespace std; //...
 // global definition for everything so that all functions can access it.
 const int  rinse_price = 10, steam_price = 15, vacuum_price = 10, wax_price = 5; // prices
 const int veichle_price[3] = {20, 15, 40}; // array for prices car, motor, truck.
 const int w_price[3] = {15, 20, 30}; // Wash prizes based on type
 const int scrub_price[3] = {10, 20, 40}; // scrub prizes based on type
-int vehicle_type, service, price, w_type, scrub_type, total, day, mon, year, serv_id, s; // types and total.
+int vehicle_type, service[2], price, w_type, scrub_type, total[3] = {}, day, mon, year, serv_id, s, pay_full = 0; // types and total.
 char start_yn[100], Serv[6][20], as_yn[5], week[7][10], mon_char[12][20] ;
 int month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; // number of days each month has.
-int *ptr_veh = &vehicle_type, *ptr_serv = &service, *ptr_w = &w_type, *ptr_scrub = &scrub_type; // using pointers for some values.
+int *ptr_veh = &vehicle_type, *ptr_w = &w_type, *ptr_scrub = &scrub_type; // using pointers for some values.
+int x = 0; // instead of putting the whole program in a loop.
 char name[] = "AHK"; // combination of team names initials.
 void tags(); // decoration, separating between different parts of the program
 void Services(); // services and their options etc.
@@ -40,9 +41,9 @@ int main()
 	cout << "			--------------------------------------------------\n\n";
 	Sleep(2 * 1000);
 	cout << "\nPlease Select Vehicle Type: " << endl << endl // prompt user to select vehicle type.
-	     << "1. Car" << endl
-	     << "2. Motor Bike" << endl
-	     << "3. Truck " << endl <<  endl;
+	     << setw(16) << left << "1. Car" << "RM " << veichle_price[0] << endl
+	     << setw(16) << left << "2. Motor Bike" << "RM " << veichle_price[1] << endl
+	     << setw(16) << left << "3. Truck" << "RM " << veichle_price[2] << endl << endl;
 	cin >> *ptr_veh;
 	while (*ptr_veh > 3 || *ptr_veh < 1) // just in case you think you're smart.
 	{
@@ -65,12 +66,12 @@ int main()
 		cout << i << ". " << Serv[i - 1] << endl;
 	}
 	cout << endl;
-	cin >> *ptr_serv;
-	while (*ptr_serv > 6 || *ptr_serv < 1) // just in case you think you're smart.
+	cin >> service[x];
+	while (service[x] > 6 || service[x] < 1) // just in case you think you're smart.
 	{
 		Sleep(1 * 1000);
 		cout << "Please Select A Valid Option: ";
-		cin >> *ptr_serv;
+		cin >> service[x];
 	}
 	Services();//function call
 	return 0;
@@ -80,7 +81,7 @@ void Services() // services function.
 {
 	tags();
 	Sleep(2 * 1000);
-	if (*ptr_serv == 1)
+	if (service[x] == 1)
 	{
 		/* the main difference between the 3 types is tools used to perform the operation and the amount of attention to details
 		premium type includes all things from Advanced and Basic with some extras as well */
@@ -109,7 +110,7 @@ void Services() // services function.
 			cout << "Proceeding To Payment..." << endl << endl; break;
 		}
 	}
-	if (*ptr_serv == 2)
+	if (service[x] == 2)
 	{
 		/* the main difference between the 3 types is tools used to perform the operation and the amount of attention to details
 		premium type includes all things from Advanced and Basic with some extras as well */
@@ -138,25 +139,25 @@ void Services() // services function.
 			cout << "Proceeding To Payment..." << endl << endl; break;
 		}
 	}
-	if (*ptr_serv == 3)
+	if (service[x] == 3)
 	{
 		cout << "\nRinse Service Selected\n" << endl; // give visual output of selected service before processing.
 		Sleep(2 * 1000);
 		cout << "Proceeding To Payment..." << endl << endl;
 	}
-	if (*ptr_serv == 4)
+	if (service[x] == 4)
 	{
 		cout << "\nSteam Service Selected...\n" << endl; // give visual output of selected service before processing.
 		Sleep(2 * 1000);
 		cout << "Proceeding To Payment..." << endl << endl;
 	}
-	if (*ptr_serv == 5)
+	if (service[x] == 5)
 	{
 		cout << "\nVacuum Service Selected...\n" << endl; // give visual output of selected service before processing.
 		Sleep(2 * 1000);
 		cout << "Proceeding To Payment..." << endl << endl;
 	}
-	if (*ptr_serv == 6)
+	if (service[x] == 6)
 	{
 		cout << "\nWax Service Selected\n" << endl; // give visual output of selected service before processing.
 		Sleep(2 * 1000);
@@ -166,13 +167,45 @@ void Services() // services function.
 	cout << endl; // formatting game on point.
 	Payment(); // go to payment function in header file
 	Ongoing(); // track operation status and time.
-	Receipt(); // go to receipt after finishing payment part
+	cout << endl << "Would You Like To Perform Another Operation (yes or no)? ";
+	cin >> as_yn;
+	cout << endl;
+	// for some reason strcmp can't compare pointers so used the variable itself
+	while (strcmp(as_yn, "yes") != 0 && strcmp(as_yn, "no") != 0 && strcmp(as_yn, "Yes") != 0 && strcmp(as_yn, "No") != 0) // again testing your IQ level.
+	{
+		Sleep(1 * 1000);
+		cout << endl <<  "Please Type Yes Or No: ";
+		cin >> as_yn;
+	}
+	Sleep(2 * 1000);
+	// check if user wants to perform another service.
+	if (strcmp(as_yn, "yes" ) == 0 || strcmp(as_yn, "Yes") == 0) // let both capital and small initials be true
+	{
+		if (x < 2)
+		{
+			Another_Service(); // function call.
+		}
+		else
+		{
+			Sleep(1 * 1000);
+			cout << "You Can Perform 3 Services Maximum!!" << endl << endl; // yeah you shouldn't be torturing your car for more than that
+			Receipt(); // just print receipt in this case.
+
+		}
+
+	}
+	else if (strcmp(as_yn, "no") == 0 || strcmp(as_yn, "No") == 0) // let both capital and small initials be true
+	{
+		Sleep(1 * 1000);
+		Receipt(); // just print receipt in this case.
+
+	}
 }
 
 void Receipt()
 {
 
-	Sleep(1 * 1000);
+	tags();
 	cout << endl <<  "Here Is Your Receipt:" << endl << endl;
 	Sleep(2 * 1000);
 	tags();
@@ -189,70 +222,60 @@ void Receipt()
 	case 3 : cout << "truck"; break;
 	}
 	Sleep(1 * 1000);
-	cout << endl <<  endl <<  setw(15) << left <<  "Service Type" << ": ";
-	switch (*ptr_serv)
+	cout << endl <<  endl <<  setw(15) << left <<  "Service(s)" << ": ";
+	for (int i = 0; i <= 2; ++i) // output user selected service(s).
 	{
-	case 1 :
-		if (*ptr_w == 1)
+		// all services  on 1 line because it looks overall better.
+		cout << "(" << i + 1 << ") ";
+		switch (service[i])
 		{
-			cout << "Basic Wash" << endl; break;
+		case 1 :
+			switch (*ptr_w)
+			{
+			case 2 : cout << "Advanced Wash"; break;
+			case 3 : cout << "Premium Wash"; break;
+			case 1 : cout << "Random Shit"; break;
+			} break;
+		case 2 :
+			if (*ptr_scrub == 1)
+			{
+				cout << "Basic Scrub"; break;
+			}
+			else if (*ptr_scrub == 2)
+			{
+				cout << "Advanced Scrub"; break;
+			}
+			else if (*ptr_scrub == 3)
+			{
+				cout << "Premium Scrub"; break;
+			}
+		case 3 : cout << "Rinse"; break;
+		case 4 : cout << "Steam"; break;
+		case 5 : cout << "Vacuum"; break;
+		case 6 : cout << "Wax"; break;
 		}
-		else if (*ptr_w == 2)
+		if (i == x) // so it wont output the whole array for no reason.
 		{
-			cout << "Advanced Wash" << endl; break;
+			break;
 		}
-		else if (*ptr_w == 3)
+		else
 		{
-			cout << "Premium Wash" << endl; break;
+			cout << ", "; // formatting 101
 		}
-	case 2 :
-		if (*ptr_scrub == 1)
-		{
-			cout << "Basic Scrub" << endl; break;
-		}
-		else if (*ptr_scrub == 2)
-		{
-			cout << "Advanced Scrub" << endl; break;
-		}
-		else if (*ptr_scrub == 3)
-		{
-			cout << "Premium Scrub" << endl; break;
-		}
-	case 3 : cout << "Rinse" << endl; break;
-	case 4 : cout << "Steam" << endl; break;
-	case 5 : cout << "Vacuum" << endl; break;
-	case 6 : cout << "Wax" << endl; break;
 	}
 	Sleep(1 * 1000);
-	cout << endl <<  setw(15) << left <<  "Payment Amount" << ": RM" << total << endl << endl;
+	for (int i = 0; i <= 2; ++i) // calculate total payment.
+	{
+		pay_full += total[i];
+	}
+	cout << endl << endl <<  setw(15) << left <<  "Total Payment " << ": RM" << pay_full << endl << endl;
 	tags();
-	cout << endl << "Would You Like To Perform Another Operation (yes or no)? ";
-	cin >> as_yn;
-	cout << endl;
-	// for some reason strcmp can't compare pointers so used the variable itself
-	while (strcmp(as_yn, "yes") != 0 && strcmp(as_yn, "no") != 0 && strcmp(as_yn, "Yes") != 0 && strcmp(as_yn, "No") != 0) // again testing your IQ level.
-	{
-		Sleep(1 * 1000);
-		cout << endl <<  "Please Type Yes Or No: ";
-		cin >> as_yn;
-	}
-	Sleep(2 * 1000);
-	// check if user wants to perform another service.
-	if (strcmp(as_yn, "yes" ) == 0 || strcmp(as_yn, "Yes") == 0) // let both capital and small initials be true
-	{
-		Another_Service(); // function call.
+	cout << "\nthank you for using our services." << endl;
+	Sleep(1 * 1000);
+	cout << "\nPlease come back again!!" << endl << endl; // or maybe not.
 
-	}
-	else if (strcmp(as_yn, "no") == 0 || strcmp(as_yn, "No") == 0) // let both capital and small initials be true
-	{
-		Sleep(1 * 1000);
-		tags();
-		cout << "\nthank you for using our services" << endl;
-		Sleep(1 * 1000);
-		cout << "\nPlease come back again!!" << endl << endl; // or maybe not.
-
-	}
 }
+
 void Ongoing() // stop program for specific amount of time based on time.
 {
 	tags();
@@ -263,18 +286,18 @@ void Ongoing() // stop program for specific amount of time based on time.
 	Sleep(2 * 1000);
 	cout << endl << "Service ongoing..." << endl;
 	// stop the program for a specific amount of seconds based on service type.
-	switch (*ptr_serv)
+	switch (service[x])
 	{
 	case 1:
-		if (*ptr_w = 1)
+		if (*ptr_w == 1)
 		{
 			Sleep(5 * 1000); // basic wash takes less time
 		}
-		else if (*ptr_w = 2)
+		else if (*ptr_w == 2)
 		{
 			Sleep(7 * 1000); // advanced wash takes more time.
 		}
-		else if (*ptr_w = 3)
+		else if (*ptr_w == 3)
 		{
 			Sleep(1 * 10000); // premium takes the most time.
 		} break;
@@ -291,15 +314,16 @@ void Ongoing() // stop program for specific amount of time based on time.
 		{
 			Sleep(8 * 1000); // premium takes the most time.
 		}
-	case 3: Sleep(4 * 1000); break; //rinse time.
-	case 4: Sleep(7 * 1000); break; // steam time.
-	case 5: Sleep(9 * 1000); break; // vacuum time.
-	case 6: Sleep(1 * 10000); break; // wax time.
+		case 3: Sleep(4 * 1000); break; //rinse time.
+		case 4: Sleep(7 * 1000); break; // steam time.
+		case 5: Sleep(9 * 1000); break; // vacuum time.
+		case 6: Sleep(1 * 10000); break; // wax time.
 	}
 	cout << "\nOperation Completed!!" << endl << endl; // skip 2 lines
 	Sleep(2 * 1000);
 	tags();
 }
+
 void Meta() // good stuff right here.
 {
 	// copy week days to week array
@@ -343,6 +367,7 @@ void Another_Service() // allow user To select another operation.
 {
 	// wont ask for vehicle type again because its already  known by now.
 	int i = 1; // for do-while
+	x = x + 1; // input to next index of service.
 	tags();
 	// get the other operation user wants to perform and start all over again
 	cout << "\nSelect Service: " << endl << endl;
@@ -352,12 +377,12 @@ void Another_Service() // allow user To select another operation.
 		++i;
 	} while (i <=  6);
 	cout << endl; // formatting 101.
-	cin >> *ptr_serv;
-	while (*ptr_serv > 6 || *ptr_serv < 1) // just confirming YOU'RE NOT SMART!!
+	cin >> service[x];
+	while (service[x] > 6 || service[x] < 1) // just confirming YOU'RE NOT SMART!!
 	{
 		Sleep(1 * 1000);
 		cout << "Please Select A Valid Option: ";
-		cin >> *ptr_serv;
+		cin >> service[x];
 	}
 	Services(); // function-inception.
 }

@@ -234,7 +234,7 @@ void Receipt()
 			{
 			case 2 : cout << "Advanced Wash"; break;
 			case 3 : cout << "Premium Wash"; break;
-			case 1 : cout << "Random Shit"; break;
+			case 1 : cout << "Basic Wash"; break;
 			} break;
 		case 2 :
 			if (*ptr_scrub == 1)

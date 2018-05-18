@@ -7,6 +7,7 @@
 #include <cstring>
 #include <unistd.h>
 #include <cstdlib>
+#include "tags.cpp"
 using namespace std;
 char waem , cold, hot , complete[10], answ_add;
 int type, standar_ret, x, type_wash, add;
@@ -228,8 +229,4 @@ void summery()
 	}
 	cout << setw(17) << left << "Total Price" << ": RM" << price << endl << endl;
 	tags();
-}
-void tags() // decoration
-{
-	cout << "==============================" << endl;
 }

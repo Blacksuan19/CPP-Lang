@@ -15,7 +15,7 @@ extern int *ptr_veh , *ptr_w, *ptr_scrub; // using pointers for some values.
 // realized this thing is gonna be huge so moved to a separate header file.
 void Payment()
 {
-	// sleep(1);
+	Sleep(1 * 1000);
 
 	if (service[x] == 1)
 	{
@@ -207,8 +207,8 @@ void Payment()
 			cout << "The Total Price For Your  Truck Wax Is: RM" << total[x]<< endl;
 		}
 	}
-	// sleep(2);
+	Sleep(2 * 1000);
 	cout << "\n" << "Please Pay at The Counter..." << "\n\n";
-	// sleep(5); // will assume that he made the payment in those 5 seconds
+	Sleep(5 * 1000); // will assume that he made the payment in those 5 seconds
 	cout << "Payment Received!" << endl << endl;
 }

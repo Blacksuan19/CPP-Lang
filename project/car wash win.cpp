@@ -313,7 +313,7 @@ void Ongoing() // stop program for specific amount of time based on time.
 		if (*ptr_scrub == 3)
 		{
 			Sleep(8 * 1000); // premium takes the most time.
-		}
+		} break;
 		case 3: Sleep(4 * 1000); break; //rinse time.
 		case 4: Sleep(7 * 1000); break; // steam time.
 		case 5: Sleep(9 * 1000); break; // vacuum time.
